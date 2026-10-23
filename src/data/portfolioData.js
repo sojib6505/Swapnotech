@@ -1,3 +1,4 @@
+import hoqerdawatImage from "../../public/images/portfolio/hoquerdawat.png"
 export const portfolioCategories = [
   { id: 'all', label: 'All' },
   { id: 'branding', label: 'Branding' },
@@ -8,6 +9,31 @@ export const portfolioCategories = [
 ];
 
 export const portfolioData = [
+  {
+  id: 'hoquer-dawat',
+  title: 'Hoquer Dawat',
+  type: 'Client Project',
+  category: 'web',
+  tag: 'Islamic Website & E-Commerce',
+  badgeLabel: 'Client Project',
+  summary: 'A comprehensive Islamic platform featuring religious articles, Q&A resources, Islamic audio and video lectures, educational programs, digital magazines, and an online bookstore.',
+  techStack: ['WordPress', 'PHP', 'WooCommerce', 'MySQL'],
+  status: 'Verified Project',
+  image: hoqerdawatImage,
+  caseStudy: {
+    challenge: 'Build a centralized Islamic platform to share authentic religious resources, publish educational content, provide answers to religious questions, and make Islamic books accessible online.',
+    solution: 'Developed a WordPress-based content platform integrating Islamic articles, audio and video lectures, religious Q&A, educational information, digital magazine access, and an online bookstore with product browsing and cart functionality.',
+    deliverables: [
+      'Custom WordPress Website',
+      'Islamic Content Management System',
+      'Online Bookstore & Shopping Cart',
+      'Audio & Video Lecture Library',
+      'Islamic Articles & Q&A Platform',
+      'Educational Program Presentation',
+      'Responsive Website Design'
+    ]
+  }
+},
   {
     id: 'hamar-electronics',
     title: 'HAMAR Electronics',

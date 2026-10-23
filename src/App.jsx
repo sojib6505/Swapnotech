@@ -10,6 +10,9 @@ import PackagesPage from './pages/PackagesPage';
 import PortfolioPage from './pages/PortfolioPage';
 import BlogPage from './pages/BlogPage';
 import ContactPage from './pages/ContactPage';
+import FloatingContact from './components/ui/Floatingcontact';
+import ChatNudge from './components/ui/Chatnudge';
+import CustomCursor from './components/ui/Customcursor';
 
 // Helper to scroll to top on page navigation
 function ScrollToTop() {
@@ -30,6 +33,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <FloatingContact/>
+      <CustomCursor/>
+      <ChatNudge brandName="Swapno Tech" />
       <div className="min-h-screen flex flex-col bg-white text-zinc-900">
         <Navbar />
         <main className="flex-grow">

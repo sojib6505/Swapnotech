@@ -85,9 +85,7 @@ export default function ContactPage() {
                 <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-950 mb-3">
                   Start an inquiry
                 </h2>
-                <div className="inline-block px-3 py-1 bg-zinc-100 text-zinc-600 rounded text-xs font-mono">
-                  {companyData.contact.formNoticePlaceholder}
-                </div>
+               
               </div>
 
               {formStatus.success ? (
@@ -227,9 +225,7 @@ export default function ContactPage() {
                     </button>
                   </div>
 
-                  <p className="text-xs font-mono text-zinc-400 pt-2 border-t border-zinc-100">
-                    {companyData.contact.privacyNoticePlaceholder}
-                  </p>
+                  
                 </form>
               )}
             </div>
@@ -263,7 +259,7 @@ export default function ContactPage() {
                   </p>
                 </div>
 
-                <div>
+                {/* <div>
                   <h4 className="text-sm font-bold text-zinc-900 mb-1 flex items-center gap-2">
                     <Share2 className="w-4 h-4 text-orange-500" />
                     <span>Social</span>
@@ -271,14 +267,10 @@ export default function ContactPage() {
                   <p className="text-xs font-mono text-zinc-500 bg-zinc-100/80 p-2 rounded inline-block">
                     {companyData.contact.socialPlaceholder}
                   </p>
-                </div>
+                </div> */}
               </div>
 
-              <div className="pt-6 border-t border-zinc-200">
-                <p className="text-xs text-zinc-500 leading-relaxed italic">
-                  Please replace these details and review the form workflow before publishing.
-                </p>
-              </div>
+             
             </div>
 
           </div>

@@ -7,6 +7,7 @@ import Button from '../components/ui/Button';
 import Modal from '../components/ui/Modal';
 import PreFooterCTA from '../components/layout/PreFooterCTA';
 import { portfolioData } from '../data/portfolioData';
+import HeroServicesPanel from '../components/ui/Heroservicespanel';
 
 export default function HomePage() {
   const [activeModalProject, setActiveModalProject] = useState(null);
@@ -50,8 +51,9 @@ export default function HomePage() {
             </div>
 
             {/* Right Hero Visual Feature */}
-            <div className="lg:col-span-5">
-              <HeroShowcaseVisual />
+            <div className="lg:col-span-5 ">
+              {/* <HeroShowcaseVisual /> */}
+              <HeroServicesPanel/>
             </div>
 
           </div>
@@ -138,7 +140,7 @@ export default function HomePage() {
       </section>
 
       {/* 3. SELECTED WORK (Portfolio Highlight matching 01-home.png) */}
-      <section className="py-20 sm:py-28 bg-[#FAFAFA] border-b border-zinc-100">
+      {/* <section className="py-20 sm:py-28 bg-[#FAFAFA] border-b border-zinc-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
             <div>
@@ -202,7 +204,7 @@ export default function HomePage() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* 4. WAYS TO WORK TOGETHER (Packages matching 01-home.png) */}
       <section className="py-20 sm:py-28 bg-white border-b border-zinc-100">
