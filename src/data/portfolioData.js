@@ -1,139 +1,141 @@
-import hoqerdawatImage from "../../public/images/portfolio/hoquerdawat.png"
-export const portfolioCategories = [
-  { id: 'all', label: 'All' },
-  { id: 'branding', label: 'Branding' },
-  { id: 'design', label: 'Design' },
-  { id: 'video', label: 'Video' },
-  { id: 'web', label: 'Web' },
-  { id: 'marketing', label: 'Marketing' },
-];
+// =====================================================================
+// 1) HomePage er jonno (purono shape). HomePage `portfolioData` import kore.
+//    ⚠️ Ager real project data hariye gele ekhane placeholder dilam.
+//    Apnar purono data thakle ei array ta tar sathe replace korun, shape ek-i rakhben.
+// ====================================================================
+import design1 from '../../public/images/portfolio/design/design1.png';
+import design2 from '../../public/images/portfolio/design/design2.png';
+import brand1 from '../../public/images/portfolio/design/brand1.png';
+import vedio1 from '../../public/images/portfolio/vedio/vedio1.mp4'
 
 export const portfolioData = [
   {
-  id: 'hoquer-dawat',
-  title: 'Hoquer Dawat',
-  type: 'Client Project',
-  category: 'web',
-  tag: 'Islamic Website & E-Commerce',
-  badgeLabel: 'Client Project',
-  summary: 'A comprehensive Islamic platform featuring religious articles, Q&A resources, Islamic audio and video lectures, educational programs, digital magazines, and an online bookstore.',
-  techStack: ['WordPress', 'PHP', 'WooCommerce', 'MySQL'],
-  status: 'Verified Project',
-  image: hoqerdawatImage,
-  caseStudy: {
-    challenge: 'Build a centralized Islamic platform to share authentic religious resources, publish educational content, provide answers to religious questions, and make Islamic books accessible online.',
-    solution: 'Developed a WordPress-based content platform integrating Islamic articles, audio and video lectures, religious Q&A, educational information, digital magazine access, and an online bookstore with product browsing and cart functionality.',
-    deliverables: [
-      'Custom WordPress Website',
-      'Islamic Content Management System',
-      'Online Bookstore & Shopping Cart',
-      'Audio & Video Lecture Library',
-      'Islamic Articles & Q&A Platform',
-      'Educational Program Presentation',
-      'Responsive Website Design'
-    ]
-  }
-},
-  {
-    id: 'hamar-electronics',
-    title: 'HAMAR Electronics',
-    type: 'Client Project',
-    category: 'web',
-    tag: 'Web & E-Commerce',
-    badgeLabel: 'Client Project',
-    summary: 'Component and electronics e-commerce platform with catalog filtering and responsive customer flow.',
-    techStack: ['React', 'Node.js', 'Tailwind CSS', 'REST API'],
-    status: 'Verified Project',
-    visualPlaceholder: 'WEB VISUAL PLACEHOLDER',
+    id: 'p1',
+    title: 'Freshmart E-commerce Platform',
+    badgeLabel: 'Web Development',
+    tag: 'E-commerce',
+    summary: 'A full-stack storefront with fast catalog filtering, secure checkout and an easy-to-use admin panel.',
+    visualPlaceholder: 'E-commerce Platform',
+    techStack: ['React', 'Node.js', 'MongoDB', 'Tailwind CSS'],
     caseStudy: {
-      challenge: 'Create a streamlined digital storefront and product catalog for electronics, hardware components, and industrial parts.',
-      solution: 'Architected a modular component-driven interface with fast category filtering, intuitive mobile navigation, and optimized product specifications.',
-      deliverables: ['Custom Web Architecture', 'Responsive UI Design', 'Product Catalog System']
-    }
+      challenge: 'The client needed to move from selling over social media to a store that could handle orders on its own.',
+      solution: 'We built a responsive storefront with product filtering, local payment options and an admin dashboard for managing orders.',
+    },
   },
   {
-    id: 'dhaka-flower-tub',
-    title: 'Dhaka Flower Tub',
-    type: 'Client Project',
-    category: 'web',
-    tag: 'E-Commerce & Retail',
-    badgeLabel: 'Client Project',
-    summary: 'Modern online storefront for eco-friendly gardenware, indoor pottery, and home lifestyle decor.',
-    techStack: ['Next.js', 'Tailwind CSS', 'Responsive UI'],
-    status: 'Verified Project',
-    visualPlaceholder: 'WEB VISUAL PLACEHOLDER',
+    id: 'p2',
+    title: 'Nova Coffee Brand Identity',
+    badgeLabel: 'Branding',
+    tag: 'Identity',
+    summary: 'A warm, modern identity system covering logo, color, typography and packaging.',
+    visualPlaceholder: 'Brand Identity',
+    techStack: ['Logo', 'Guidelines', 'Packaging'],
     caseStudy: {
-      challenge: 'Establish an elegant, visually rich digital catalog highlighting handcrafted flower tubs and planters for urban homeowners.',
-      solution: 'Engineered a clean, minimalist visual layout emphasizing earthy tones, clear product photography grids, and direct ordering inquiries.',
-      deliverables: ['Brand Alignment', 'E-commerce Catalog Layout', 'Mobile Checkout Flow']
-    }
+      challenge: 'A new coffee brand needed to stand out in a crowded local market with limited budget.',
+      solution: 'We created a flexible identity and a short guideline so every touchpoint looks consistent.',
+    },
   },
   {
-    id: 'autoreply-ai',
-    title: 'AutoReply AI',
-    type: 'Internal Project',
-    category: 'web',
-    tag: 'AI Application & SaaS',
-    badgeLabel: 'Internal Project',
-    summary: 'Intelligent automated response generator and customer inquiry triage assistant for online businesses.',
-    techStack: ['React', 'OpenAI API', 'Tailwind CSS', 'FastAPI'],
-    status: 'Verified Project / Prototype',
-    visualPlaceholder: 'SOFTWARE VISUAL PLACEHOLDER',
+    id: 'p3',
+    title: 'Lumen Clinic Lead Campaign',
+    badgeLabel: 'Marketing',
+    tag: 'Campaign',
+    summary: 'A paid campaign and landing page built to bring in qualified appointment requests.',
+    visualPlaceholder: 'Marketing Campaign',
+    techStack: ['Meta Ads', 'Google Ads', 'Landing page'],
     caseStudy: {
-      challenge: 'Reduce initial customer response latency across digital touchpoints for growing digital and F-commerce teams.',
-      solution: 'Developed an AI-assisted messaging interface that drafts context-aware replies, categorizes urgency, and maintains brand tone.',
-      deliverables: ['SaaS Interface Design', 'Prompt Engineering Architecture', 'User Testing Prototype']
-    }
+      challenge: 'The clinic had steady walk-ins but no reliable way to bring in new patients online.',
+      solution: 'We set up tracking, tested creatives and tuned the landing page to lower the cost per lead.',
+    },
+  },
+];
+
+// =====================================================================
+// 2) Notun Portfolio page er jonno
+// =====================================================================
+// ⚠️ Shob placeholder data. Real project ashle sudhu ei file e edit korun, code chhuté hobe na.
+// tone: 'orange' | 'dark' | 'sand' | 'stone'  (image na thakle ei color block dekhabe)
+// Real image add korte chaile item e `image: '/images/portfolio/xyz.jpg'` field dite parben
+// (PortfolioPage e Art component e image support add kora jabe).
+// featured: true dile "All" tab e dekhabe.
+
+export const categories = [
+  { id: 'all', label: 'All', blurb: 'A curated mix of our best work across every discipline.' },
+  { id: 'branding', label: 'Branding', blurb: 'Identities that make businesses memorable.' },
+  { id: 'design', label: 'Design', blurb: 'Posters, social creatives and print, crafted to stop the scroll.' },
+  { id: 'video', label: 'Video', blurb: 'Reels, promos and films with pace and personality.' },
+  { id: 'web', label: 'Web', blurb: 'Fast, responsive websites built to convert.' },
+  { id: 'marketing', label: 'Marketing', blurb: 'Campaigns measured by results, not just reach.' },
+];
+
+export const portfolioItems = [
+  // ---------- BRANDING ----------
+  {
+    id: 'b1', category: 'branding', title: 'NIRBAN DESIGN STUDIO.', client: '', year: 2025, tone: 'orange', featured: true,
+    tagline: 'Crafting Spaces, Inspiring Lives.', colors: [ '#18181B', '#FFFFFF'], font: 'Sora',
+    tags: ['Logo', 'Guidelines'],
+    summary: 'Logo concept and design brief will be added after discussion and confirmation with the designer.', image: brand1
   },
   {
-    id: 'swapno-tech-brand',
-    title: 'Swapno Tech Identity',
-    type: 'Internal Project',
-    category: 'branding',
-    tag: 'Identity & Guidelines',
-    badgeLabel: 'Internal Project',
-    summary: 'Brand visual system, typography guidelines, and digital identity for modern technology agency operations.',
-    techStack: ['Brand Strategy', 'Typography System', 'Figma', 'Design System'],
-    status: 'Verified Brand Identity',
-    visualPlaceholder: 'BRANDING VISUAL PLACEHOLDER',
-    caseStudy: {
-      challenge: 'Craft a minimal, high-trust identity rooted in bold contrast, purposeful typography, and disciplined color restraint.',
-      solution: 'Built a coherent design language emphasizing monochromatic confidence with precision orange highlights.',
-      deliverables: ['Design System Manual', 'Digital Agency Web Platform', 'Collateral Assets']
-    }
+    id: 'b2', category: 'branding', title: 'Atlas Studio', client: 'Atlas Studio', year: 2025, tone: 'dark', featured: true,
+    tagline: 'Architecture, clearly drawn.', colors: ['#18181B', '#FAFAFA', '#F97316'], font: 'Inter',
+    tags: ['Logo', 'Stationery', 'Website'],
+    summary: 'Placeholder brief: a design studio wanted a quiet, confident identity that lets its work speak.',
   },
   {
-    id: 'video-project-placeholder',
-    title: '[Video Project Placeholder]',
-    type: 'Concept Project',
-    category: 'video',
-    tag: 'Video Production',
-    badgeLabel: 'Concept Project',
-    summary: 'Editorial motion reel and commercial story pacing for product demonstration and social campaigns.',
-    techStack: ['Premiere Pro', 'After Effects', 'Sound Design'],
-    status: 'Placeholder',
-    visualPlaceholder: 'VIDEO VISUAL PLACEHOLDER',
-    caseStudy: {
-      challenge: 'Demonstrate narrative video pacing and product showcase capability for dynamic digital campaigns.',
-      solution: 'Structured a placeholder case study template ready to link approved client showreels upon launch.',
-      deliverables: ['Commercial Edit Reel', 'Aspect-Ratio Adaptations', 'Color Grade']
-    }
+    id: 'b3', category: 'branding', title: 'Bloom Skincare', client: 'Bloom', year: 2024, tone: 'sand',
+    tagline: 'Gentle by nature.', colors: ['#FED7AA', '#7C2D12', '#FFFFFF'], font: 'Playfair',
+    tags: ['Logo', 'Packaging', 'Social kit'],
+    summary: 'Placeholder brief: a skincare startup needed a soft, trustworthy look across packaging and digital.',
+  },
+
+  // ---------- DESIGN ----------
+  { id: 'd2', category: 'design', title: 'Social Media Pack', client: 'Travel Architect', year: 2025, tone: 'dark', aspect: 'square', featured: true,image: design1 },
+  { id: 'd1', category: 'design', title: 'Occasion-Based Design', client: 'Freshmart', year: 2025, tone: 'orange', aspect: 'portrait', featured: true,image: design2  },
+  { id: 'd3', category: 'design', title: 'Event Banner', client: 'Atlas Studio', year: 2025, tone: 'sand', aspect: 'landscape' },
+  { id: 'd4', category: 'design', title: 'Menu Design', client: 'Spice Route', year: 2024, tone: 'stone', aspect: 'portrait' },
+  { id: 'd5', category: 'design', title: 'Product Ad Creative', client: 'Bloom', year: 2024, tone: 'orange', aspect: 'square' },
+  { id: 'd6', category: 'design', title: 'Brochure Cover', client: 'Lumen Clinic', year: 2024, tone: 'dark', aspect: 'landscape',  },
+
+  // ---------- VIDEO ----------
+  // videoUrl: YouTube/Vimeo embed link, jemon 'https://www.youtube.com/embed/VIDEO_ID'
+  { id: 'v1', category: 'video', title: 'Brand Promo Reel', client: 'Nova Coffee', year: 2025, tone: 'dark', format: 'reel', duration: '0:30', videoUrl:vedio1},
+  { id: 'v2', category: 'video', title: 'Product Launch Film', client: 'Freshmart', year: 2025, tone: 'orange', format: 'wide', duration: '1:20', videoUrl: '', featured: true },
+  { id: 'v3', category: 'video', title: 'Customer Story', client: 'Lumen Clinic', year: 2024, tone: 'stone', format: 'wide', duration: '2:05', videoUrl: '' },
+  { id: 'v4', category: 'video', title: 'Offer Teaser', client: 'Spice Route', year: 2025, tone: 'sand', format: 'reel', duration: '0:15', videoUrl: '' },
+  { id: 'v5', category: 'video', title: 'Event Recap', client: 'Atlas Studio', year: 2024, tone: 'dark', format: 'reel', duration: '0:45', videoUrl: '' },
+
+  // ---------- WEB ----------
+  {
+    id: 'w1', category: 'web', title: 'Freshmart Storefront', client: 'Freshmart', year: 2025, tone: 'orange', featured: true,
+    domain: 'freshmart.example', liveUrl: '', stack: ['React', 'Node.js', 'MongoDB'],
+    summary: 'Placeholder: an e-commerce storefront with fast catalog filtering and a simple checkout.',
   },
   {
-    id: 'marketing-campaign-placeholder',
-    title: '[Campaign Project Placeholder]',
-    type: 'Concept Project',
-    category: 'marketing',
-    tag: 'Digital Growth',
-    badgeLabel: 'Concept Project',
-    summary: 'Targeted omnichannel awareness campaign framework structured for F-commerce and retail brands.',
-    techStack: ['Meta Ads Manager', 'Conversion Tracking', 'Creative Direction'],
-    status: 'Placeholder',
-    visualPlaceholder: 'MARKETING VISUAL PLACEHOLDER',
-    caseStudy: {
-      challenge: 'Establish an end-to-end framework for creative A/B testing, pixel conversion tracking, and campaign scaling.',
-      solution: 'Created an audit and campaign playbook for rapid launch across paid social channels.',
-      deliverables: ['Campaign Strategy Deck', 'Ad Creative Templates', 'Reporting Dashboard']
-    }
+    id: 'w2', category: 'web', title: 'Archway Interiors', client: 'Archway', year: 2025, tone: 'stone',
+    domain: 'archway.example', liveUrl: '', stack: ['React', 'Tailwind CSS'],
+    summary: 'Placeholder: a portfolio-led website for an interior design studio.',
+  },
+  {
+    id: 'w3', category: 'web', title: 'Lumen Clinic', client: 'Lumen Clinic', year: 2024, tone: 'sand',
+    domain: 'lumenclinic.example', liveUrl: '', stack: ['React', 'Firebase'],
+    summary: 'Placeholder: a clinic website with online appointment requests.',
+  },
+
+  // ---------- MARKETING ----------
+  {
+    id: 'm1', category: 'marketing', title: 'Seasonal Collection Launch', client: 'Freshmart', year: 2025, featured: true,
+    goal: 'Drive online sales during a seasonal peak.', channels: ['Meta Ads', 'Reels', 'Email'],
+    metrics: [{ value: '3.4x', label: 'ROAS' }, { value: '120K', label: 'Reach' }, { value: '+68%', label: 'Orders' }],
+  },
+  {
+    id: 'm2', category: 'marketing', title: 'Lead Generation Campaign', client: 'Lumen Clinic', year: 2025,
+    goal: 'Fill the appointment calendar with qualified leads.', channels: ['Google Ads', 'Landing page'],
+    metrics: [{ value: '420', label: 'Leads' }, { value: '-35%', label: 'Cost / lead' }, { value: '9.1%', label: 'Conversion' }],
+  },
+  {
+    id: 'm3', category: 'marketing', title: 'Brand Awareness Push', client: 'Nova Coffee', year: 2024,
+    goal: 'Introduce a new brand to the local audience.', channels: ['Instagram', 'TikTok', 'Influencers'],
+    metrics: [{ value: '1.2M', label: 'Impressions' }, { value: '+4.8K', label: 'Followers' }, { value: '6.3%', label: 'Engagement' }],
   },
 ];

@@ -8,6 +8,11 @@ import Modal from '../components/ui/Modal';
 import PreFooterCTA from '../components/layout/PreFooterCTA';
 import { portfolioData } from '../data/portfolioData';
 import HeroServicesPanel from '../components/ui/Heroservicespanel';
+import ClientLogos from '../components/ui/ClientLogos';
+import PortfolioPreview from '../components/ui/PortfolioPreview';
+import Team from '../components/ui/Team';
+import HeroOrbitVisual from '../components/ui/HeroOrbitVisual';
+import Hero from '../components/layout/Hero';
 
 export default function HomePage() {
   const [activeModalProject, setActiveModalProject] = useState(null);
@@ -18,47 +23,7 @@ export default function HomePage() {
   return (
     <div className="bg-white">
       {/* 1. HERO SECTION (Dark Banner matching 01-home.png) */}
-      <section className="bg-[#0A0A0A] text-white pt-16 pb-20 sm:pt-20 sm:pb-28 border-b border-zinc-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-            
-            {/* Left Copy & Actions */}
-            <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2">
-                <span className="text-xs font-mono font-semibold tracking-widest text-orange-500 uppercase">
-                  CREATIVE • TECHNOLOGY • MARKETING
-                </span>
-              </div>
-
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
-                Build Your Business. <br />
-                We’ll Help You <br className="hidden sm:inline" />
-                Move Forward.
-              </h1>
-
-              <p className="max-w-xl text-base sm:text-lg text-zinc-300 leading-relaxed font-normal">
-                Creative, technology and marketing support for growing businesses. From your first idea to your next stage, we help make the work clearer and more connected.
-              </p>
-
-              <div className="pt-2 flex flex-wrap items-center gap-4">
-                <Button to="/services" variant="primary" size="lg">
-                  <span>Explore Our Services</span>
-                </Button>
-                <Button to="/portfolio" variant="secondary" size="lg">
-                  <span>View Our Work</span>
-                </Button>
-              </div>
-            </div>
-
-            {/* Right Hero Visual Feature */}
-            <div className="lg:col-span-5 ">
-              {/* <HeroShowcaseVisual /> */}
-              <HeroServicesPanel/>
-            </div>
-
-          </div>
-        </div>
-      </section>
+      <Hero/>
 
       {/* 2. WHAT WE DO (Services Summary matching 01-home.png) */}
       <section className="py-20 sm:py-28 bg-white border-b border-zinc-100">
@@ -140,71 +105,7 @@ export default function HomePage() {
       </section>
 
       {/* 3. SELECTED WORK (Portfolio Highlight matching 01-home.png) */}
-      {/* <section className="py-20 sm:py-28 bg-[#FAFAFA] border-b border-zinc-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
-            <div>
-              <span className="text-xs font-mono font-semibold tracking-wider text-orange-600 uppercase block mb-3">
-                SELECTED WORK
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950">
-                A look at the work.
-              </h2>
-            </div>
-            <div>
-              <Link
-                to="/portfolio"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-zinc-900 hover:text-orange-600 transition-colors"
-              >
-                <span>See portfolio</span>
-                <span className="text-orange-600">→</span>
-              </Link>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {selectedProjects.map((project) => (
-              <div 
-                key={project.id}
-                className="group rounded-xl bg-white border border-zinc-200/80 p-5 shadow-sm hover:shadow-md transition-all duration-200"
-              >
-                <div className="mb-5 overflow-hidden rounded-lg">
-                  <TechGraphic 
-                    label={project.visualPlaceholder} 
-                    className="w-full group-hover:scale-[1.01] transition-transform duration-300"
-                    aspectRatio="aspect-[16/9]"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <span className="inline-block px-2.5 py-0.5 rounded bg-zinc-100 text-zinc-700 text-xs font-mono">
-                    {project.badgeLabel}
-                  </span>
-
-                  <h3 className="text-xl font-bold text-zinc-950 pt-1 group-hover:text-orange-600 transition-colors">
-                    {project.title}
-                  </h3>
-
-                  <p className="text-sm text-zinc-600 line-clamp-2">
-                    {project.summary}
-                  </p>
-
-                  <div className="pt-2">
-                    <button
-                      type="button"
-                      onClick={() => setActiveModalProject(project)}
-                      className="inline-flex items-center gap-1.5 text-sm font-semibold text-zinc-900 hover:text-orange-600 transition-colors"
-                    >
-                      <span>View case study</span>
-                      <span className="text-orange-600">→</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
+      <PortfolioPreview/>
 
       {/* 4. WAYS TO WORK TOGETHER (Packages matching 01-home.png) */}
       <section className="py-20 sm:py-28 bg-white border-b border-zinc-100">
@@ -354,6 +255,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      <ClientLogos/>
+      {/* <Team/> */}
 
       {/* 7. PRE-FOOTER CTA BANNER */}
       <PreFooterCTA />
