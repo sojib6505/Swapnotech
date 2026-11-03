@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { servicesData, serviceCategories } from '../data/servicesData';
 import Modal from '../components/ui/Modal';
@@ -23,11 +23,94 @@ export default function ServicesPage() {
     }
   };
 
+  // Scroll reveal
+  const revealRef = useRef(null);
+  useEffect(() => {
+    const section = revealRef.current;
+    if (!section) return;
+    const els = section.querySelectorAll('.reveal');
+    if (!els.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-visible'); observer.unobserve(e.target); } }),
+      { threshold: 0.12 }
+    );
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [filteredServices]);
+
   return (
     <div className="bg-white">
-      {/* HERO SECTION (Dark Banner matching 02-service.png) */}
-      <section className="bg-[#0A0A0A] text-white pt-16 pb-20 sm:pt-20 sm:pb-24 border-b border-zinc-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <style>{`
+        /* Dot grid */
+        .svc-dot-grid {
+          background-image: radial-gradient(circle, rgba(249,115,22,.13) 1px, transparent 1.3px);
+          background-size: 26px 26px;
+        }
+        /* Orb */
+        .svc-orb {
+          background: radial-gradient(closest-side, rgba(249,115,22,.22), rgba(249,115,22,.07) 55%, transparent 100%);
+        }
+        /* Hero sheen line */
+        @keyframes svc-sheen {
+          0%   { transform: translateX(-110%); }
+          100% { transform: translateX(110%); }
+        }
+        .svc-sheen::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(90deg, transparent 0%, rgba(249,115,22,.55) 50%, transparent 100%);
+          animation: svc-sheen 2.8s ease-in-out infinite;
+        }
+        /* Scroll reveal */
+        .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s cubic-bezier(.22,.9,.3,1); }
+        .reveal.is-visible { opacity: 1; transform: none; }
+        .reveal-delay-1 { transition-delay: .1s; }
+        .reveal-delay-2 { transition-delay: .2s; }
+        .reveal-delay-3 { transition-delay: .3s; }
+        .reveal-delay-4 { transition-delay: .4s; }
+        /* Card top gradient on hover */
+        .svc-card-bar { height: 3px; width: 0; background: linear-gradient(90deg, #F97316, #FDBA74); border-radius: 3px 3px 0 0; position: absolute; top: 0; left: 0; transition: width .35s cubic-bezier(.22,.9,.3,1); }
+        .svc-card:hover .svc-card-bar { width: 100%; }
+        .svc-card:hover { box-shadow: 0 8px 32px rgba(249,115,22,.12), 0 2px 8px rgba(0,0,0,.06); }
+        /* Section warm bg */
+        .svc-warm-bg {
+          background: linear-gradient(160deg, #fffbf7 0%, #fff7ee 40%, #fafafa 100%);
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .reveal { opacity: 1; transform: none; transition: none; }
+          .svc-sheen::after { animation: none; }
+          .svc-card-bar { transition: none; }
+        }
+      `}</style>
+
+      {/* HERO SECTION */}
+      <section className="relative bg-[#0A0A0A] text-white pt-16 pb-20 sm:pt-20 sm:pb-28 overflow-hidden">
+        {/* Dot grid overlay */}
+        <div className="svc-dot-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden="true" />
+
+        {/* Floating orange orbs */}
+        <div
+          className="svc-orb pointer-events-none absolute -top-24 -left-24 h-[420px] w-[420px] rounded-full"
+          aria-hidden="true"
+          style={{ filter: 'blur(0px)' }}
+        />
+        <div
+          className="svc-orb pointer-events-none absolute bottom-0 right-0 h-[340px] w-[340px] rounded-full translate-x-1/3 translate-y-1/4"
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-64 w-64 rounded-full"
+          style={{ background: 'radial-gradient(closest-side, rgba(249,115,22,.10), transparent 100%)' }}
+          aria-hidden="true"
+        />
+
+        {/* Animated orange bottom border */}
+        <div className="svc-sheen pointer-events-none absolute bottom-0 left-0 right-0 h-[2px] overflow-hidden" aria-hidden="true">
+          <div className="h-full bg-zinc-800" />
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-4">
             <span className="text-xs font-mono font-semibold tracking-wider text-orange-500 uppercase block">
               OUR SERVICES
@@ -43,11 +126,11 @@ export default function ServicesPage() {
       </section>
 
       {/* FILTER TABS & SERVICE CARDS SECTION */}
-      <section className="py-16 sm:py-24 bg-[#FAFAFA]">
+      <section ref={revealRef} className="py-16 sm:py-24 svc-warm-bg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center gap-2.5 mb-12">
+          <div className="flex flex-wrap items-center gap-2.5 mb-12 reveal">
             {serviceCategories.map((cat) => {
               const isActive = currentCategory === cat.id;
               return (
@@ -55,10 +138,10 @@ export default function ServicesPage() {
                   key={cat.id}
                   type="button"
                   onClick={() => handleCategoryChange(cat.id)}
-                  className={`px-4 py-2 rounded-full text-xs font-medium transition-all duration-200 ${
+                  className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 ${
                     isActive
-                      ? 'bg-zinc-950 text-white shadow-sm'
-                      : 'bg-white text-zinc-700 border border-zinc-300 hover:border-zinc-900'
+                      ? 'bg-orange-600 text-white shadow-md shadow-orange-200'
+                      : 'bg-white text-zinc-700 border border-zinc-200 hover:border-orange-200 hover:text-orange-700 hover:bg-orange-50'
                   }`}
                 >
                   {cat.label}
@@ -69,11 +152,14 @@ export default function ServicesPage() {
 
           {/* 12 Service Cards Grid (3 Columns) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredServices.map((service) => (
+            {filteredServices.map((service, idx) => (
               <div
                 key={service.id}
-                className="group rounded-xl border border-zinc-200/80 bg-white p-7 shadow-sm hover:border-zinc-400 hover:shadow-md transition-all duration-200 flex flex-col justify-between"
+                className={`svc-card group relative rounded-xl border border-zinc-200/80 bg-white p-7 shadow-sm transition-all duration-300 flex flex-col justify-between overflow-hidden reveal reveal-delay-${Math.min(idx % 3 + 1, 4)}`}
               >
+                {/* Top gradient bar on hover */}
+                <div className="svc-card-bar" aria-hidden="true" />
+
                 <div>
                   <h3 className="text-lg font-bold text-zinc-950 mb-3 group-hover:text-orange-600 transition-colors">
                     {service.title}

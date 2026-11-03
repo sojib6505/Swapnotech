@@ -291,6 +291,18 @@ export default function PortfolioPage() {
   const di = open && open.category === 'design' ? designs.findIndex((d) => d.id === open.id) : -1;
   const step = (dir) => setOpen(designs[(di + dir + designs.length) % designs.length]);
 
+  // Scroll reveal
+  useEffect(() => {
+    const els = document.querySelectorAll('.reveal');
+    if (!els.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-visible'); observer.unobserve(e.target); } }),
+      { threshold: 0.1 }
+    );
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [category]);
+
   const renderCard = (item, grid) => {
     switch (item.category) {
       case 'branding': return <BrandCard item={item} onOpen={setOpen} />;
@@ -322,19 +334,68 @@ export default function PortfolioPage() {
       <style>{`
         @keyframes pf-fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
         @keyframes pf-pop { from { opacity: 0; transform: translateY(16px) scale(.97); } to { opacity: 1; transform: none; } }
+        /* Hero orb float */
+        @keyframes pf-orb-float {
+          0%, 100% { transform: translateY(0) scale(1); }
+          50%       { transform: translateY(-14px) scale(1.06); }
+        }
+        @keyframes pf-orb-float2 {
+          0%, 100% { transform: translateY(0) scale(1); }
+          50%       { transform: translateY(10px) scale(0.96); }
+        }
         .pf-fade { animation: pf-fade .4s ease-out both; }
         .pf-pop { animation: pf-pop .3s cubic-bezier(.22,.9,.3,1) both; }
         .pf-tabs::-webkit-scrollbar { display: none; }
-        @media (prefers-reduced-motion: reduce) { .pf-fade, .pf-pop { animation: none; } }
+        .pf-orb-1 { animation: pf-orb-float 6s ease-in-out infinite; }
+        .pf-orb-2 { animation: pf-orb-float2 8s ease-in-out infinite; }
+        .pf-orb-3 { animation: pf-orb-float 10s ease-in-out infinite; }
+        /* CTA dot grid */
+        .pf-cta-dots {
+          background-image: radial-gradient(circle, rgba(249,115,22,.18) 1px, transparent 1.3px);
+          background-size: 26px 26px;
+        }
+        /* Scroll reveal */
+        .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s cubic-bezier(.22,.9,.3,1); }
+        .reveal.is-visible { opacity: 1; transform: none; }
+        .reveal-delay-1 { transition-delay: .1s; }
+        .reveal-delay-2 { transition-delay: .2s; }
+        @media (prefers-reduced-motion: reduce) {
+          .pf-fade, .pf-pop { animation: none; }
+          .pf-orb-1, .pf-orb-2, .pf-orb-3 { animation: none; }
+          .reveal { opacity: 1; transform: none; transition: none; }
+        }
       `}</style>
 
       {/* HERO */}
       <section className="relative overflow-hidden">
-        <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-orange-500/10 blur-3xl" aria-hidden="true" />
+        {/* Main existing orb — now animated */}
+        <div
+          className="pf-orb-1 pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-orange-500/10 blur-3xl"
+          aria-hidden="true"
+        />
+        {/* Additional orbs */}
+        <div
+          className="pf-orb-2 pointer-events-none absolute left-1/3 top-1/2 -translate-y-1/2 h-56 w-56 rounded-full"
+          style={{ background: 'radial-gradient(closest-side, rgba(249,115,22,.10), transparent 100%)' }}
+          aria-hidden="true"
+        />
+        <div
+          className="pf-orb-3 pointer-events-none absolute -left-16 bottom-0 h-72 w-72 rounded-full bg-orange-500/06 blur-2xl"
+          aria-hidden="true"
+        />
         <div className="relative mx-auto max-w-7xl px-4 pb-10 pt-16 sm:px-6 sm:pt-24 lg:px-8">
           <span className="text-sm font-semibold text-orange-600">Portfolio</span>
           <h1 className="mt-3 max-w-3xl text-4xl font-extrabold tracking-tight text-zinc-950 sm:text-5xl lg:text-6xl">
-            Work we're <span className="text-orange-600">proud of.</span>
+            Work we're{' '}
+            <span className="relative text-orange-600">
+              proud of.
+              {/* Dramatic underline accent */}
+              <span
+                className="pointer-events-none absolute -bottom-1 left-0 right-0 h-[3px] rounded-full"
+                style={{ background: 'linear-gradient(90deg, #F97316, #FDBA74 60%, transparent)' }}
+                aria-hidden="true"
+              />
+            </span>
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-zinc-600 sm:text-lg">
             Branding, design, video, web and marketing. Pick a category to see how each one comes together.
@@ -353,7 +414,9 @@ export default function PortfolioPage() {
                 aria-selected={category === c.id}
                 onClick={() => setCategory(c.id)}
                 className={`shrink-0 rounded-full px-5 py-2 text-sm font-semibold transition-all ${
-                  category === c.id ? 'bg-zinc-950 text-white shadow' : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200 hover:text-zinc-950'
+                  category === c.id
+                    ? 'bg-orange-600 text-white shadow-md shadow-orange-200'
+                    : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200 hover:text-zinc-950'
                 }`}
               >
                 {c.label}
@@ -366,18 +429,32 @@ export default function PortfolioPage() {
       {/* CONTENT */}
       <section className="mx-auto max-w-7xl px-4 pb-20 pt-10 sm:px-6 lg:px-8">
         <div key={category} className="pf-fade">
-          <p className="mb-8 max-w-xl text-base text-zinc-600">{current.blurb}</p>
-          {content}
+          <p className="mb-8 max-w-xl text-base text-zinc-600 reveal">{current.blurb}</p>
+          <div className="reveal reveal-delay-1">{content}</div>
         </div>
       </section>
 
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden rounded-3xl bg-zinc-950 px-6 py-14 text-center sm:px-12">
-          <div className="pointer-events-none absolute -bottom-20 left-1/2 h-56 w-96 -translate-x-1/2 rounded-full bg-orange-500/20 blur-3xl" aria-hidden="true" />
+          {/* Dot grid overlay */}
+          <div className="pf-cta-dots pointer-events-none absolute inset-0 opacity-50" aria-hidden="true" />
+          <div
+            className="pointer-events-none absolute -bottom-20 left-1/2 h-56 w-96 -translate-x-1/2 rounded-full bg-orange-500/20 blur-3xl"
+            aria-hidden="true"
+          />
+          {/* Extra orb top right */}
+          <div
+            className="pointer-events-none absolute right-10 top-6 h-28 w-28 rounded-full"
+            style={{ background: 'radial-gradient(closest-side, rgba(249,115,22,.22), transparent 100%)' }}
+            aria-hidden="true"
+          />
           <h2 className="relative text-2xl font-bold tracking-tight text-white sm:text-4xl">Have a project in mind?</h2>
           <p className="relative mx-auto mt-3 max-w-xl text-zinc-400">Tell us what you're building and we'll shape a plan around it.</p>
-          <Link to="/contact" className="relative mt-8 inline-flex items-center gap-2 rounded-xl bg-orange-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-orange-500">
+          <Link
+            to="/contact"
+            className="relative mt-8 inline-flex items-center gap-2 rounded-xl bg-orange-600 px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-orange-500 hover:shadow-lg hover:shadow-orange-500/30"
+          >
             Talk to us <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

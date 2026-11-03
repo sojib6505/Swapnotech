@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { CheckCircle2, AlertCircle, Mail, Phone, Minus, Plus, Sparkles, ChevronDown, Loader2 } from 'lucide-react';
 import { companyData } from '../data/companyData';
@@ -157,6 +157,20 @@ export default function ContactPage() {
     }
   }, [prefilledService]);
 
+  // Scroll reveal
+  const revealRef = useRef(null);
+  useEffect(() => {
+    const root = revealRef.current || document.body;
+    const els = root.querySelectorAll('.reveal');
+    if (!els.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-visible'); observer.unobserve(e.target); } }),
+      { threshold: 0.1 }
+    );
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -222,13 +236,96 @@ export default function ContactPage() {
 
   return (
     <div className="bg-white">
+      <style>{`
+        /* Dot grid */
+        .contact-dot-grid {
+          background-image: radial-gradient(circle, rgba(249,115,22,.13) 1px, transparent 1.3px);
+          background-size: 26px 26px;
+        }
+        /* Orb */
+        .contact-orb {
+          background: radial-gradient(closest-side, rgba(249,115,22,.22), rgba(249,115,22,.07) 55%, transparent 100%);
+        }
+        /* Hero sheen */
+        @keyframes contact-sheen {
+          0%   { transform: translateX(-110%); }
+          100% { transform: translateX(110%); }
+        }
+        .contact-sheen::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(90deg, transparent 0%, rgba(249,115,22,.55) 50%, transparent 100%);
+          animation: contact-sheen 2.8s ease-in-out infinite;
+        }
+        /* Form card gradient border */
+        .contact-form-card {
+          background: linear-gradient(white, white) padding-box,
+                      linear-gradient(135deg, rgba(249,115,22,.20), rgba(253,186,116,.10), rgba(249,115,22,.15)) border-box;
+          border: 1px solid transparent;
+          box-shadow: 0 4px 24px rgba(0,0,0,.06), 0 1px 4px rgba(0,0,0,.04);
+        }
+        /* Submit button glow on hover */
+        .contact-submit:hover:not(:disabled) {
+          box-shadow: 0 6px 24px rgba(249,115,22,.35), 0 2px 8px rgba(249,115,22,.20);
+        }
+        /* Right column decorative dot */
+        .contact-info-dot {
+          background: radial-gradient(closest-side, rgba(249,115,22,.18), transparent 100%);
+        }
+        /* Info item subtle hover */
+        .contact-info-item {
+          transition: background .2s ease;
+        }
+        .contact-info-item:hover {
+          background: rgba(249,115,22,.04);
+        }
+        /* Warm section bg */
+        .contact-warm-bg {
+          background: linear-gradient(160deg, #fffbf7 0%, #fff7ee 40%, #fafafa 100%);
+        }
+        /* Scroll reveal */
+        .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s cubic-bezier(.22,.9,.3,1); }
+        .reveal.is-visible { opacity: 1; transform: none; }
+        .reveal-delay-1 { transition-delay: .1s; }
+        .reveal-delay-2 { transition-delay: .2s; }
+        @media (prefers-reduced-motion: reduce) {
+          .reveal { opacity: 1; transform: none; transition: none; }
+          .contact-sheen::after { animation: none; }
+          .contact-submit:hover:not(:disabled) { box-shadow: none; }
+        }
+      `}</style>
+
       {/* HERO */}
-      <section className="bg-[#0A0A0A] text-white pt-16 pb-20 sm:pt-20 sm:pb-24 border-b border-zinc-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative bg-[#0A0A0A] text-white pt-16 pb-20 sm:pt-20 sm:pb-28 overflow-hidden">
+        {/* Dot grid overlay */}
+        <div className="contact-dot-grid pointer-events-none absolute inset-0 opacity-60" aria-hidden="true" />
+
+        {/* Floating orange orbs */}
+        <div
+          className="contact-orb pointer-events-none absolute -top-20 -left-20 h-[380px] w-[380px] rounded-full"
+          aria-hidden="true"
+        />
+        <div
+          className="contact-orb pointer-events-none absolute bottom-0 right-0 h-[300px] w-[300px] rounded-full translate-x-1/3 translate-y-1/4"
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute top-1/3 right-1/4 h-40 w-40 rounded-full"
+          style={{ background: 'radial-gradient(closest-side, rgba(249,115,22,.10), transparent 100%)' }}
+          aria-hidden="true"
+        />
+
+        {/* Animated bottom sheen */}
+        <div className="contact-sheen pointer-events-none absolute bottom-0 left-0 right-0 h-[2px] overflow-hidden" aria-hidden="true">
+          <div className="h-full bg-zinc-800" />
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl space-y-4">
             <span className="text-xs font-mono font-semibold tracking-wider text-orange-500 uppercase block">CONTACT</span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
-              Tell us what you’re building.
+              Tell us what you're building.
             </h1>
             <p className="text-base sm:text-lg text-zinc-300 leading-relaxed pt-2">
               Share a little about your project, and start a conversation about the support you need.
@@ -238,11 +335,11 @@ export default function ContactPage() {
       </section>
 
       {/* FORM & INFO */}
-      <section className="py-16 sm:py-24 bg-[#FAFAFA]">
+      <section ref={revealRef} className="py-16 sm:py-24 contact-warm-bg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             {/* Form */}
-            <div className="lg:col-span-7 bg-white p-8 sm:p-10 rounded-xl border border-zinc-200/90 shadow-sm">
+            <div className="lg:col-span-7 contact-form-card p-8 sm:p-10 rounded-xl reveal">
               <div className="mb-8">
                 <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-950">Start an inquiry</h2>
               </div>
@@ -254,7 +351,7 @@ export default function ContactPage() {
                     <span>Inquiry Received</span>
                   </div>
                   <p className="text-sm leading-relaxed">
-                    Thank you, <strong>{formData.name}</strong>. We’ve received your message and will get back to you soon.
+                    Thank you, <strong>{formData.name}</strong>. We've received your message and will get back to you soon.
                   </p>
                   <button type="button" onClick={resetForm} className="text-xs font-semibold text-orange-600 underline hover:text-orange-700 pt-2 block">
                     Submit another response
@@ -324,7 +421,7 @@ export default function ContactPage() {
                           <span className="block text-sm font-bold text-zinc-900">
                             Customize your package <span className="font-medium text-zinc-400">(optional)</span>
                           </span>
-                          <span className="block text-xs text-zinc-500">Build a plan that fits you, and we’ll quote it.</span>
+                          <span className="block text-xs text-zinc-500">Build a plan that fits you, and we'll quote it.</span>
                         </span>
                       </span>
                       <ChevronDown className={`h-5 w-5 shrink-0 text-zinc-500 transition-transform ${customize ? 'rotate-180' : ''}`} />
@@ -384,7 +481,7 @@ export default function ContactPage() {
                     <button
                       type="submit"
                       disabled={formStatus.loading}
-                      className="inline-flex items-center gap-2 px-7 py-3 bg-orange-600 hover:bg-orange-500 disabled:cursor-not-allowed disabled:opacity-70 text-white font-medium text-sm rounded-md transition-all shadow-sm active:scale-[0.98]"
+                      className="contact-submit inline-flex items-center gap-2 px-7 py-3 bg-orange-600 hover:bg-orange-500 disabled:cursor-not-allowed disabled:opacity-70 text-white font-medium text-sm rounded-md transition-all shadow-sm active:scale-[0.98]"
                     >
                       {formStatus.loading && <Loader2 className="h-4 w-4 animate-spin" />}
                       {formStatus.loading ? 'Sending...' : 'Send Inquiry'}
@@ -395,17 +492,22 @@ export default function ContactPage() {
             </div>
 
             {/* Right column */}
-            <div className="lg:col-span-5 space-y-8 lg:pt-4">
+            <div className="lg:col-span-5 space-y-8 lg:pt-4 reveal reveal-delay-1">
+              {/* Decorative orb element */}
+              <div
+                className="contact-info-dot pointer-events-none absolute -right-8 top-0 h-40 w-40 rounded-full opacity-70"
+                aria-hidden="true"
+              />
               <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-950 mb-6">Other ways to connect</h3>
-              <div className="space-y-6">
-                <div>
+              <div className="space-y-4">
+                <div className="contact-info-item rounded-xl p-4 border border-zinc-100">
                   <h4 className="text-sm font-bold text-zinc-900 mb-1 flex items-center gap-2">
                     <Mail className="w-4 h-4 text-orange-500" />
                     <span>Email</span>
                   </h4>
                   <p className="text-xs font-mono text-zinc-500 bg-zinc-100/80 p-2 rounded inline-block">{companyData.contact.emailPlaceholder}</p>
                 </div>
-                <div>
+                <div className="contact-info-item rounded-xl p-4 border border-zinc-100">
                   <h4 className="text-sm font-bold text-zinc-900 mb-1 flex items-center gap-2">
                     <Phone className="w-4 h-4 text-orange-500" />
                     <span>Phone</span>

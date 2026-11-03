@@ -1,0 +1,170 @@
+export const TRUSTED_CLIENTS = [
+  {
+    name: 'Radiant Fish World',
+    category: 'Underwater Tourism & Experience',
+    sub: 'Digital Architecture & Growth',
+  },
+  {
+    name: 'Dhaka Elegance',
+    category: 'Bespoke Luxury Apparel',
+    sub: 'Brand Identity & Digital Lookbook',
+  },
+  {
+    name: 'The Glitch Gallery',
+    category: 'Contemporary Art & Studio',
+    sub: 'Production & Exhibition Platform',
+  },
+  {
+    name: 'Sun District',
+    category: 'Consumer Goods & Retail',
+    sub: 'Growth Marketing & Creative Funnel',
+  },
+];
+
+export const GOAL_OPTIONS = [
+  {
+    id: 'start',
+    label: "I’m starting a business",
+    subtitle: 'From zero to market presence',
+    headline: 'Build a brand foundation before you speak to your first customer.',
+    description: 'We establish your brand positioning, visual identity, core web presence, and customer intake flow so you enter the market with immediate authority.',
+    solution: 'STARTER PRESENCE / BRAND LAUNCH',
+    deliverables: ['Visual identity & brand guide', 'Conversion-engineered launch website', 'WhatsApp & lead intake automation', 'Social media launch creative kit'],
+  },
+  {
+    id: 'customers',
+    label: 'I need more customers',
+    subtitle: 'Predictable demand generation',
+    headline: 'Stop guessing on ads. Build an interconnected customer engine.',
+    description: 'We connect creative video hooks, targeted Meta & Google ad funnels, and automated follow-ups to turn market attention into paying clients.',
+    solution: 'GROWTH ENGINE',
+    deliverables: ['Paid acquisition operations (Meta/Google)', 'High-converting video & static ad creatives', 'Conversion-rate optimized landing pages', 'Automated lead capture & retargeting'],
+  },
+  {
+    id: 'content',
+    label: 'I need better content',
+    subtitle: 'High-craft monthly creative operations',
+    headline: 'Content engineered to build trust and command attention.',
+    description: 'Consistent, studio-quality static posters, short-form reels, and commercial assets that elevate your brand and build an engaged audience.',
+    solution: 'CONTENT & CREATIVE OPERATIONS',
+    deliverables: ['Monthly planned static & carousel sets', 'Studio-cut reels & short-form video', 'Strategic copywriting & messaging', 'Campaign-specific promotional kits'],
+  },
+  {
+    id: 'brand',
+    label: 'I want to build my brand',
+    subtitle: 'Strategic identity & market positioning',
+    headline: 'Make your business unforgettable in a noisy market.',
+    description: 'Comprehensive brand strategy, visual systems, packaging, and creative direction designed to earn trust and separate you from commodity competitors.',
+    solution: 'BRAND ARCHITECTURE',
+    deliverables: ['Brand positioning & narrative', 'Logo system, typography & color rules', 'Packaging & print collateral design', 'Digital brand guidelines handbook'],
+  },
+  {
+    id: 'digital',
+    label: 'I want to go digital',
+    subtitle: 'Modernize traditional business operations',
+    headline: 'Turn manual processes into automated digital infrastructure.',
+    description: 'We build digital storefronts, lead capture pipelines, and automated customer communication systems to transition traditional businesses online.',
+    solution: 'DIGITAL BUSINESS',
+    deliverables: ['Modern web or e-commerce storefront', 'Automated WhatsApp customer recovery', 'Payment & order tracking workflows', 'Digital catalog & inquiry pipelines'],
+  },
+  {
+    id: 'technology',
+    label: 'I need technology',
+    subtitle: 'Custom web software & workflow automation',
+    headline: 'Websites and custom software built to perform, not just exist.',
+    description: 'High-performance React web applications, custom platforms, and backend integrations engineered for speed, conversion, and seamless operation.',
+    solution: 'DIGITAL & TECHNOLOGY',
+    deliverables: ['Custom web application development', 'API & third-party tool integrations', 'Automated CRM & WhatsApp routing', 'Fast, SEO-optimized digital platforms'],
+  },
+];
+
+export const SOLUTIONS = [
+  {
+    code: '01',
+    title: 'STARTER PRESENCE',
+    forWhom: 'For businesses building their digital foundation.',
+    solves: 'Inconsistent or missing online presence that fails to inspire buyer confidence.',
+    capabilities: ['Brand Identity Basics', 'Conversion Web Store/Site', 'WhatsApp Intake Setup', 'Launch Creative Kit'],
+    cta: 'Discuss Starter Presence',
+  },
+  {
+    code: '02',
+    title: 'GROWTH ENGINE',
+    forWhom: 'For businesses that need more customers and stronger marketing.',
+    solves: 'Random advertising spend that produces unpredictable revenue and cold leads.',
+    capabilities: ['Meta & Google Ads Management', 'Full-Funnel Ad Creatives', 'Dedicated Landing Pages', 'Lead Retargeting'],
+    cta: 'Explore Growth Engine',
+    featured: true,
+  },
+  {
+    code: '03',
+    title: 'BRAND LAUNCH',
+    forWhom: 'For businesses launching or rebuilding their brand.',
+    solves: 'Generic look and feel that makes you look like every other competitor in the market.',
+    capabilities: ['Brand Positioning & Narrative', 'Complete Visual System', 'Studio Asset Production', 'Market Launch Strategy'],
+    cta: 'Plan Brand Launch',
+  },
+  {
+    code: '04',
+    title: 'DIGITAL BUSINESS',
+    forWhom: 'For businesses moving deeper into digital operations.',
+    solves: 'Operational friction, slow manual customer response, and missed online sales.',
+    capabilities: ['E-Commerce & Platform Build', 'Automated Cart Recovery', 'Order Management Workflows', 'Customer Communication Systems'],
+    cta: 'Build Digital Platform',
+  },
+  {
+    code: '05',
+    title: 'GROWTH PARTNERSHIP',
+    forWhom: 'For businesses looking for ongoing strategic support.',
+    solves: 'The headache of managing disconnected freelancers and inconsistent output.',
+    capabilities: ['Dedicated Strategic Advisory', 'Continuous Monthly Content', 'Active Campaign Optimization', 'Bi-weekly Performance Reviews'],
+    cta: 'Apply for Partnership',
+  },
+  {
+    code: '06',
+    title: 'CUSTOM',
+    forWhom: 'For businesses with a specific architectural requirement.',
+    solves: 'Unique commercial objectives that require a bespoke digital or technical blueprint.',
+    capabilities: ['Tailored Technical Scoping', 'Custom Web Applications', 'API & Data Integrations', 'Specialized Growth Systems'],
+    cta: 'Tell Us What You Need',
+  },
+];
+
+export const SERVICES = [
+  {
+    number: '01',
+    title: 'BRAND',
+    description: 'Brand strategy, positioning, visual identity, creative direction, and cohesive brand systems built around one clear story.',
+    points: ['Brand Strategy & Positioning', 'Visual Identity & Logo Systems', 'Creative Direction & Guidelines', 'Packaging & Collateral Design'],
+  },
+  {
+    number: '02',
+    title: 'CONTENT & CREATIVE',
+    description: 'Social content, graphics, copywriting, content strategy, video editing, and high-impact short-form video assets.',
+    points: ['Monthly Creative Systems', 'High-Converting Copywriting', 'Short-Form Reels & Video Editing', 'Static & Carousel Campaign Designs'],
+  },
+  {
+    number: '03',
+    title: 'MARKETING & GROWTH',
+    description: 'Marketing strategy, Meta Ads, Google Ads, lead generation, tracking, retargeting, and continuous performance optimization.',
+    points: ['Meta & Google Ad Campaigns', 'Audience Retargeting & Funnels', 'Pixel / CAPI & Tracking Setup', 'Lead Generation Systems'],
+  },
+  {
+    number: '04',
+    title: 'PRODUCTION',
+    description: 'Product photography, product video, reels, OVC, commercial production, and precision post-production.',
+    points: ['Studio Product Photography', 'Commercial Video & OVC/TVC', 'High-Impact Reel Shoots', 'Color Grading & Audio Post'],
+  },
+  {
+    number: '05',
+    title: 'DIGITAL & TECHNOLOGY',
+    description: 'Landing pages, websites, e-commerce, web applications, and custom software engineered for conversion and speed.',
+    points: ['Conversion-Engineered Landing Pages', 'Corporate & Portfolio Websites', 'E-Commerce Storefronts', 'Custom Web Applications'],
+  },
+  {
+    number: '06',
+    title: 'AUTOMATION',
+    description: 'WhatsApp automation, inbox automation, lead capture, automated follow-up, and streamlined workflow integrations.',
+    points: ['WhatsApp Business API Workflows', 'Instant Lead Capture & Notification', 'Abandoned Cart & Customer Follow-up', 'Zapier / Make Automation Pipelines'],
+  },
+];

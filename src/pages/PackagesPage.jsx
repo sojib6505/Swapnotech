@@ -31,16 +31,25 @@ function Cell({ value }) {
   return <span className="text-sm font-medium text-zinc-800">{value}</span>;
 }
 
-function TierCard({ tier }) {
+function TierCard({ tier, animDelay = 0 }) {
   const f = tier.featured;
   return (
     <div
-      className={`relative flex flex-col rounded-2xl border p-6 transition-all duration-300 ${
+      className={`pkg-tier-card relative flex flex-col rounded-2xl border p-6 transition-all duration-300 reveal ${
         f
           ? "border-zinc-800 bg-zinc-950 text-white shadow-2xl shadow-orange-500/10 lg:-translate-y-3"
           : "border-zinc-200 bg-white text-zinc-950 hover:-translate-y-1 hover:shadow-xl hover:shadow-zinc-200/70"
       }`}
+      style={{ transitionDelay: `${animDelay}s` }}
     >
+      {/* Animated glow ring for featured card */}
+      {f && (
+        <span
+          className="pkg-glow-ring pointer-events-none absolute inset-0 rounded-2xl"
+          aria-hidden="true"
+        />
+      )}
+
       {f && (
         <span className="absolute -top-3 left-6 rounded-full bg-orange-600 px-3 py-1 text-xs font-semibold text-white">
           Most popular
@@ -261,12 +270,68 @@ export default function PackagesPage() {
     return () => cancelAnimationFrame(raf);
   }, []);
 
+  // Scroll reveal
+  const revealRef = useRef(null);
+  useEffect(() => {
+    const root = document.body;
+    const els = root.querySelectorAll('.reveal');
+    if (!els.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-visible'); observer.unobserve(e.target); } }),
+      { threshold: 0.1 }
+    );
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [tab]);
+
   return (
     <div className="bg-white">
+      <style>{`
+        /* Glow ring animation for featured tier card */
+        @keyframes pkg-glow-spin {
+          0%   { box-shadow: 0 0 0 0 rgba(249,115,22,.0), 0 0 0 2px rgba(249,115,22,.25); }
+          50%  { box-shadow: 0 0 32px 4px rgba(249,115,22,.20), 0 0 0 2px rgba(249,115,22,.45); }
+          100% { box-shadow: 0 0 0 0 rgba(249,115,22,.0), 0 0 0 2px rgba(249,115,22,.25); }
+        }
+        .pkg-glow-ring {
+          animation: pkg-glow-spin 2.5s ease-in-out infinite;
+          border-radius: inherit;
+        }
+        /* Animated orbs in CTA */
+        @keyframes pkg-float {
+          0%, 100% { transform: translate(-50%, 100%) scale(1); }
+          50%       { transform: translate(-50%, 90%) scale(1.12); }
+        }
+        .pkg-cta-orb {
+          animation: pkg-float 5s ease-in-out infinite;
+        }
+        /* Hero orb bg */
+        .pkg-hero-orb {
+          background: radial-gradient(closest-side, rgba(249,115,22,.18), rgba(249,115,22,.06) 55%, transparent 100%);
+        }
+        /* Scroll reveal */
+        .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s cubic-bezier(.22,.9,.3,1); }
+        .reveal.is-visible { opacity: 1; transform: none; }
+        .reveal-delay-1 { transition-delay: .1s; }
+        .reveal-delay-2 { transition-delay: .2s; }
+        .reveal-delay-3 { transition-delay: .3s; }
+        .reveal-delay-4 { transition-delay: .4s; }
+        @media (prefers-reduced-motion: reduce) {
+          .reveal { opacity: 1; transform: none; transition: none; }
+          .pkg-glow-ring { animation: none; box-shadow: 0 0 0 2px rgba(249,115,22,.35); }
+          .pkg-cta-orb { animation: none; }
+        }
+      `}</style>
+
       {/* HERO */}
       <section className="relative overflow-hidden">
+        {/* Enhanced orb behind hero */}
         <div
-          className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-orange-500/10 blur-3xl"
+          className="pkg-hero-orb pointer-events-none absolute -right-24 -top-24 h-[480px] w-[480px] rounded-full"
+          aria-hidden="true"
+        />
+        <div
+          className="pkg-hero-orb pointer-events-none absolute -left-32 top-1/2 -translate-y-1/2 h-64 w-64 rounded-full opacity-60"
           aria-hidden="true"
         />
         <div className="relative mx-auto max-w-7xl px-4 pb-10 pt-16 sm:px-6 sm:pt-24 lg:px-8">
@@ -299,7 +364,7 @@ export default function PackagesPage() {
                 onClick={() => setTab(t.id)}
                 className={`rounded-full px-5 py-2.5 text-sm font-semibold transition-all ${
                   tab === t.id
-                    ? "bg-zinc-950 text-white shadow"
+                    ? "bg-orange-600 text-white shadow"
                     : "text-zinc-600 hover:text-zinc-950"
                 }`}
               >
@@ -315,11 +380,11 @@ export default function PackagesPage() {
           {/* TIER CARDS */}
           <section className="mx-auto max-w-7xl px-4 pb-16 pt-8 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 gap-6 pt-3 sm:grid-cols-2 xl:grid-cols-4">
-              {monthlyTiers.map((t) => (
-                <TierCard key={t.id} tier={t} />
+              {monthlyTiers.map((t, idx) => (
+                <TierCard key={t.id} tier={t} animDelay={idx * 0.1} />
               ))}
             </div>
-            <div className="mt-8 flex items-start gap-3 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-3.5 text-sm text-zinc-600">
+            <div className="mt-8 flex items-start gap-3 rounded-xl border border-zinc-200 bg-zinc-50 px-4 py-3.5 text-sm text-zinc-600 reveal">
               <Info className="mt-0.5 h-4 w-4 shrink-0 text-orange-600" />
               <p>{adSpendNote}</p>
             </div>
@@ -327,10 +392,10 @@ export default function PackagesPage() {
 
           {/* COMPARE */}
           <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
-            <h2 className="mb-8 text-2xl font-bold tracking-tight text-zinc-950 sm:text-3xl">
+            <h2 className="mb-8 text-2xl font-bold tracking-tight text-zinc-950 sm:text-3xl reveal">
               Compare every feature
             </h2>
-            <div className="rounded-2xl border border-zinc-200">
+            <div className="rounded-2xl border border-zinc-200 reveal reveal-delay-1">
               <CompareTable />
               <CompareAccordion />
             </div>
@@ -349,8 +414,20 @@ export default function PackagesPage() {
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
         <div className="relative overflow-hidden rounded-3xl bg-zinc-950 px-6 py-14 text-center sm:px-12">
+          {/* Animated orb */}
           <div
-            className="pointer-events-none absolute -bottom-20 left-1/2 h-56 w-96 -translate-x-1/2 rounded-full bg-orange-500/20 blur-3xl"
+            className="pkg-cta-orb pointer-events-none absolute left-1/2 bottom-0 h-56 w-96 -translate-x-1/2 rounded-full bg-orange-500/20 blur-3xl"
+            aria-hidden="true"
+          />
+          {/* Second smaller orb */}
+          <div
+            className="pointer-events-none absolute right-12 top-6 h-32 w-32 rounded-full"
+            style={{ background: 'radial-gradient(closest-side, rgba(249,115,22,.18), transparent 100%)' }}
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute left-12 top-8 h-24 w-24 rounded-full"
+            style={{ background: 'radial-gradient(closest-side, rgba(249,115,22,.12), transparent 100%)' }}
             aria-hidden="true"
           />
           <h2 className="relative text-2xl font-bold tracking-tight text-white sm:text-4xl">
@@ -361,7 +438,7 @@ export default function PackagesPage() {
           </p>
           <Link
             to="/contact"
-            className="relative mt-8 inline-flex items-center gap-2 rounded-xl bg-orange-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-orange-500"
+            className="relative mt-8 inline-flex items-center gap-2 rounded-xl bg-orange-600 px-6 py-3 text-sm font-semibold text-white transition-all hover:bg-orange-500 hover:shadow-lg hover:shadow-orange-500/30"
           >
             Talk to us <ArrowRight className="h-4 w-4" />
           </Link>
